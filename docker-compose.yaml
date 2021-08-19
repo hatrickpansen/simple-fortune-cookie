@@ -3,7 +3,7 @@ version: '3.1'
 services:
 
   backend:
-    image: misterpatrick/simple-fortune-cookie-backend:38f6189f3ef0264febe1053f99eed99d46cfcbd9
+    image: misterpatrick/simple-fortune-cookie-backend:k8
     ports:
         - "9000:9000"
     links:
@@ -14,7 +14,7 @@ services:
         - REDIS_DNS=redis
 
   frontend:
-    image: misterpatrick/simple-fortune-cookie-frontend:38f6189f3ef0264febe1053f99eed99d46cfcbd9
+    image: misterpatrick/simple-fortune-cookie-frontend:k8
     ports:
         - "8080:8080"
     depends_on:

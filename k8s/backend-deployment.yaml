@@ -27,7 +27,7 @@ spec:
         - env:
             - name: REDIS_DNS
               value: redis
-          image: misterpatrick/simple-fortune-cookie-backend:9e456cef838aa17236d4104d763d007c251d6221
+          image: misterpatrick/simple-fortune-cookie-backend:k8
           name: backend
           ports:
             - containerPort: 9000

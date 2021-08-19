@@ -27,7 +27,7 @@ spec:
         - env:
             - name: BACKEND_DNS
               value: backend
-          image: misterpatrick/simple-fortune-cookie-frontend:9e456cef838aa17236d4104d763d007c251d6221
+          image: misterpatrick/simple-fortune-cookie-frontend:k8
           name: frontend
           ports:
             - containerPort: 8080
