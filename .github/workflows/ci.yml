@@ -1,6 +1,8 @@
 name: Go CI
 on: 
   push:
+#    branches:
+#      - main
   pull_request:
     branches:
       - main
@@ -9,8 +11,6 @@ on:
 env:
   docker_username: ${{ secrets.DOCKER_USERNAME }}
   docker_password: ${{ secrets.DOCKER_PASSWORD }}
-  BACKEND_DNS: localhost
-  BACKEND_PORT: 9000
 
 jobs:
   Clone-down:
@@ -24,32 +24,46 @@ jobs:
         with:
           name: clone-down
           path: .
-  Build:
-    needs: Clone-down
+  DockerImage-frontend:
     runs-on: ubuntu-latest
-    container: golang:latest
+    needs: Clone-down
     steps:
-      - name: Download a single artifact
+      - name: Download artifact clone-down
         uses: actions/download-artifact@v2
         with:
           name: clone-down
           path: .
-      - name: Build backend
-        run: go build
-        working-directory: ./backend
-      - name: Upload
-        uses: actions/upload-artifact@v2
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
         with:
-          name: backend-bin
-          path: ./backend/backend
-      - name: Build frontend
-        run: go build
+          username: ${{ env.docker_username }}
+          password: ${{ env.docker_password }}
+      - name: Build and push
+        uses: docker/build-push-action@v2
         working-directory: ./frontend
-      - name: Upload
-        uses: actions/upload-artifact@v2
         with:
-          name: frontend-bin
-          path: ./frontend/frontend
+          push: true
+          tags: ${{ docker_username }}/simple-fortune-cookie-frontend:latest
+  DockerImage-backend:
+    runs-on: ubuntu-latest
+    needs: Clone-down
+    steps:
+      - name: Download artifact clone-down
+        uses: actions/download-artifact@v2
+        with:
+          name: clone-down
+          path: .
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ env.docker_username }}
+          password: ${{ env.docker_password }}
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        working-directory: ./backend
+        with:
+          push: true
+          tags: ${{ docker_username }}/simple-fortune-cookie-backend:latest
   Go-Test:
     needs: Clone-down
     runs-on: ubuntu-latest
@@ -63,26 +77,5 @@ jobs:
       - name: Run Go Test on frontend
         run: go test
         working-directory: ./frontend
-  Docker-image:
-    runs-on: ubuntu-latest
-    needs: [Clone-down, Build, Go-Test]
-    steps:
-      - name: Download artifact clone-down
-        uses: actions/download-artifact@v2
-        with:
-          name: clone-down
-          path: .
-      - name: Login to DockerHub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ env.docker_username }}
-          password: ${{ env.docker_password }}
-      - name: showing where we are
-        run: ls -R
-      - name: Build and push
-        uses: docker/build-push-action@v2
-        working-directory: .
-        with:
-          push: true
-          tags: misterpatrick/simple-fortune-cookie:latest
+    
 
