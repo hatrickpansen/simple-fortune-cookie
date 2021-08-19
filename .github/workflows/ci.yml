@@ -45,7 +45,7 @@ jobs:
           path: ./backend/backend
   Go-Test:
     needs: Build
-    runs-on: ubuntu-latests
+    runs-on: ubuntu-latest
     container: golang:latest
     steps:
       - name: Download a single artifact
