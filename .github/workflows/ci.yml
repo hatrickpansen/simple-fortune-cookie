@@ -47,6 +47,6 @@ jobs:
           name: backend-bin
           path: .
       - name: Start backend
-        run: ./backend | echo
+        run: ./backend
       - name: Test
-        run: chmod+x ci/curlTest && ci/curlTest.sh
+        run: bash ci/curlTest.sh
