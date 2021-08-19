@@ -43,6 +43,7 @@ jobs:
         with:
           name: build-backend
           path: .
-      - name: Test
+      - name: Start backend
         run: ./backend/backend | echo
+      - name: Test
         run: chmod+x ci/curlTest && ci/curlTest.sh
