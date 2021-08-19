@@ -40,7 +40,7 @@ jobs:
   Go-Test:
     needs: Build
     runs-on: ubuntu-latests
-    contianer: golang:latest
+    container: golang:latest
     steps:
       - name: Download a single artifact
         uses: actions/download-artifact@v2
@@ -50,22 +50,3 @@ jobs:
       - name: Run Go Test on frontend
         run: go test
         working-directory: ./frontend
-  Test:
-    needs: Build
-    runs-on: self-hosted
-    steps:
-      - name: Download a single artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: backend-bin
-          path: .
-      - name: Start backend
-        run: chmod +x ./backend && ./backend
-        working-directory: .
-      - name: Download a single artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: clone-down
-          path: .
-      - name: Test
-        run: bash ci/curlTest.sh
