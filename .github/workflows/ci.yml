@@ -31,6 +31,8 @@ jobs:
           path: .
       - name: cd backend
         run: cd ./backend
+      - name: pwd
+        run: pwd
       - name: Build backend
         run: go build
       - name: Upload
