@@ -23,14 +23,31 @@ jobs:
         with:
           name: clone-down
           path: .
-  Test:
+  Build:
     needs: Clone-down
     runs-on: ubuntu-latest
+    container: golang:latest
     steps:
       - name: Download a single artifact
         uses: actions/download-artifact@v2
         with:
           name: clone-down
+          path: .
+      - name: Build
+        run: go build ./backend/backend
+      - name: Upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: .
+  Test:
+    needs: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download a single artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: build
           path: .
       - name: Test
         run: bash ./curlTest.sh
