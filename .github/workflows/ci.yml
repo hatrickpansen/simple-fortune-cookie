@@ -77,8 +77,11 @@ jobs:
         with:
           username: ${{ env.docker_username }}
           password: ${{ env.docker_password }}
+      - name: showing where we are
+        run: ls -R
       - name: Build and push
         uses: docker/build-push-action@v2
+        working-directory: .
         with:
           push: true
           tags: misterpatrick/simple-fortune-cookie:latest
