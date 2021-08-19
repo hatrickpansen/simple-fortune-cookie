@@ -44,7 +44,7 @@ jobs:
         with:
           push: true
           context: ./frontend
-          tags: ${{ env.docker_username }}/simple-fortune-cookie-frontend:latest
+          tags: ${{ env.docker_username }}/simple-fortune-cookie-frontend:${{ github.sha }}
 
   DockerImage-backend:
     runs-on: ubuntu-latest
@@ -65,7 +65,7 @@ jobs:
         with:
           push: true
           context: ./backend
-          tags: ${{ env.docker_username }}/simple-fortune-cookie-backend:latest
+          tags: ${{ env.docker_username }}/simple-fortune-cookie-backend:${{ github.sha }}
 
   Go-Test:
     needs: Clone-down
