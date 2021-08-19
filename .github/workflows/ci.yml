@@ -24,6 +24,7 @@ jobs:
         with:
           name: clone-down
           path: .
+
   DockerImage-frontend:
     runs-on: ubuntu-latest
     needs: Clone-down
@@ -43,7 +44,9 @@ jobs:
         working-directory: ./frontend
         with:
           push: true
+          context: ./frontend
           tags: ${{ docker_username }}/simple-fortune-cookie-frontend:latest
+
   DockerImage-backend:
     runs-on: ubuntu-latest
     needs: Clone-down
@@ -60,10 +63,11 @@ jobs:
           password: ${{ env.docker_password }}
       - name: Build and push
         uses: docker/build-push-action@v2
-        working-directory: ./backend
         with:
           push: true
+          context: ./backend
           tags: ${{ docker_username }}/simple-fortune-cookie-backend:latest
+          
   Go-Test:
     needs: Clone-down
     runs-on: ubuntu-latest
