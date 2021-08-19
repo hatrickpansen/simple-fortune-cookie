@@ -1,0 +1,1 @@
+curl -X GET -f $BACKEND_DNS:$BACKEND_PORT
