@@ -36,7 +36,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: backend-bin
-          path: ./backend/
+          path: ./backend/backend
   Test:
     needs: Build
     runs-on: self-hosted
@@ -48,6 +48,11 @@ jobs:
           path: .
       - name: Start backend
         run: ./backend
-        working-directory: ./backend
+        working-directory: .
+      - name: Download a single artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: clone-down
+          path: .
       - name: Test
         run: bash ci/curlTest.sh
