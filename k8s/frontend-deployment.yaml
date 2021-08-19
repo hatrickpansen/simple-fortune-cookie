@@ -23,10 +23,12 @@ spec:
       labels:
         io.kompose.service: frontend
     spec:
-      containers:
-        - env:
+      containers: 
+        - env: # HER DET GÅR GALT MED BACKEND
             - name: BACKEND_DNS
               value: backend
+            - name: BACKEND_PORT
+              value: "9000"
           image: misterpatrick/simple-fortune-cookie-frontend:k8
           name: frontend
           ports:
