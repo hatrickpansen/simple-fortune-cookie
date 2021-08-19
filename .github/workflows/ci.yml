@@ -29,6 +29,8 @@ jobs:
         with:
           name: clone-down
           path: .
+      - name: ls all the things
+        run: ls -R
       - name: Build backend
         run: go build ./backend
       - name: Upload
