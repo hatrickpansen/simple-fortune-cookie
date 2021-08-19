@@ -36,7 +36,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: backend-bin
-          path: .
+          path: ./backend/
   Test:
     needs: Build
     runs-on: self-hosted
