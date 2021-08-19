@@ -28,7 +28,7 @@ jobs:
           name: clone-down
           path: .
       - name: Build backend
-        run: go build ./backend/backend
+        run: go build ./backend
       - name: Upload
         uses: actions/upload-artifact@v2
         with:
