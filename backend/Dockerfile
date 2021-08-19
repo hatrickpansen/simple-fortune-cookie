@@ -1,7 +1,5 @@
 FROM golang:latest
 
-RUN apt-get update -y
-
 WORKDIR /go/src/app
 
 COPY . .
