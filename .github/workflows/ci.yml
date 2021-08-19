@@ -65,7 +65,7 @@ jobs:
         working-directory: ./frontend
   Docker-image:
     runs-on: ubuntu-latest
-    needs: [Clone-down, Build, Test]
+    needs: [Clone-down, Build, Go-Test]
     steps:
       - name: Download artifact clone-down
         uses: actions/download-artifact@v2
