@@ -47,7 +47,7 @@ jobs:
           name: backend-bin
           path: .
       - name: Start backend
-        run: chmod +x && ./backend
+        run: chmod +x ./backend && ./backend
         working-directory: .
       - name: Download a single artifact
         uses: actions/download-artifact@v2
