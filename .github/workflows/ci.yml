@@ -1,11 +1,5 @@
 name: Go CI
-on: 
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+on: push
 
 env:
   docker_username: ${{ secrets.DOCKER_USERNAME }}
@@ -42,7 +36,7 @@ jobs:
           path: .
   Test:
     needs: Build
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Download a single artifact
         uses: actions/download-artifact@v2
