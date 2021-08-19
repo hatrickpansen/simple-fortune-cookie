@@ -4,7 +4,7 @@ RUN apt-get update -y
 
 WORKDIR /go/scr/app
 
-COPY . .
+COPY ./frontend .
 RUN go build
 
 # Exposees port 8080

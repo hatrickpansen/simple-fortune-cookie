@@ -4,7 +4,7 @@ RUN apt-get update -y
 
 WORKDIR /go/src/app
 
-COPY . .
+COPY ./backend .
 RUN go build
 
 # Nothing to expose?
