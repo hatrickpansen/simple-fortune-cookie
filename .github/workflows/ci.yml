@@ -33,12 +33,12 @@ jobs:
         with:
           name: clone-down
           path: .
-      - name: Build
+      - name: Build backend
         run: go build ./backend/backend
       - name: Upload
         uses: actions/upload-artifact@v2
         with:
-          name: build
+          name: build-backend
           path: .
   Test:
     needs: Build
@@ -47,7 +47,8 @@ jobs:
       - name: Download a single artifact
         uses: actions/download-artifact@v2
         with:
-          name: build
+          name: build-backend
           path: .
       - name: Test
-        run: bash ./curlTest.sh
+        run: ./backend/backend | echo
+        run: chmod+x ci/curlTest && ci/curlTest.sh
