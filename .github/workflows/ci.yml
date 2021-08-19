@@ -48,5 +48,6 @@ jobs:
           path: .
       - name: Start backend
         run: ./backend
+        working-directory: ./backend
       - name: Test
         run: bash ci/curlTest.sh
