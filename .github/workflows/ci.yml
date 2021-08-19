@@ -29,10 +29,10 @@ jobs:
         with:
           name: clone-down
           path: .
-      - name: ls all the things
-        run: ls -R
+      - name: cd backend
+        run: cd ./backend
       - name: Build backend
-        run: go build ./backend
+        run: go build
       - name: Upload
         uses: actions/upload-artifact@v2
         with:
