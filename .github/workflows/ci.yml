@@ -4,6 +4,8 @@ on: push
 env:
   docker_username: ${{ secrets.DOCKER_USERNAME }}
   docker_password: ${{ secrets.DOCKER_PASSWORD }}
+  BACKEND_DNS: localhost
+  BACKEND_PORT: 9000
 
 jobs:
   Clone-down:
@@ -28,12 +30,12 @@ jobs:
           name: clone-down
           path: .
       - name: Build backend
-        run: go build /backend
+        run: go build ./backend
       - name: Upload
         uses: actions/upload-artifact@v2
         with:
-          name: build-backend
-          path: .
+          name: backend-bin
+          path: ./backend/backend
   Test:
     needs: Build
     runs-on: self-hosted
@@ -41,9 +43,9 @@ jobs:
       - name: Download a single artifact
         uses: actions/download-artifact@v2
         with:
-          name: build-backend
+          name: backend-bin
           path: .
       - name: Start backend
-        run: ./backend/backend | echo
+        run: ./backend | echo
       - name: Test
         run: chmod+x ci/curlTest && ci/curlTest.sh
