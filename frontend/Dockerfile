@@ -9,4 +9,4 @@ RUN go build
 EXPOSE 8080 
 
 # Add a default command for this image
-CMD ["go run ."]
+CMD ["go", "run", "."]
