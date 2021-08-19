@@ -1,0 +1,36 @@
+name: Go CI
+on: 
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  docker_username: ${{ secrets.DOCKER_USERNAME }}
+  docker_password: ${{ secrets.DOCKER_PASSWORD }}
+
+jobs:
+  Clone-down:
+    runs-on: ubuntu-latest
+    container: golang:latest
+    steps:
+      - name: Clone down repo
+        uses: actions/checkout@v2
+      - name: Upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: clone-down
+          path: .
+  Test:
+    needs: Clone-down
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download a single artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: clone-down
+          path: .
+      - name: Test
+        run: bash ./curlTest.sh
