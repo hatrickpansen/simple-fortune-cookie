@@ -6,7 +6,12 @@ services:
     build: ./backend
     ports:
         - "9000:9000"
-
+    links:
+        - redis
+    depends_on:
+        - redis
+    environment:
+        - REDIS_DNS=redis
 
   frontend:
     build: ./frontend
@@ -17,3 +22,13 @@ services:
     environment:
         - BACKEND_DNS=backend
 
+
+
+  redis:
+    image: redis
+    ports:
+        - "6379:6379"
+    volumes:
+        - redis:/data:rw
+volumes:
+  redis:
