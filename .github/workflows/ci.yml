@@ -37,6 +37,19 @@ jobs:
         with:
           name: backend-bin
           path: ./backend/backend
+  Go-Test:
+    needs: Build
+    runs-on: ubuntu-latests
+    contianer: golang:latest
+    steps:
+      - name: Download a single artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: clone-down
+          path: .
+      - name: Run Go Test on frontend
+        run: go test
+        working-directory: ./frontend
   Test:
     needs: Build
     runs-on: self-hosted
