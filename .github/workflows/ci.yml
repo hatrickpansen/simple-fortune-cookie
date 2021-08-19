@@ -31,8 +31,7 @@ jobs:
           path: .
       - name: Build backend
         run: go build
-        working-directory:
-          - ./backend
+        working-directory: ./backend
       - name: Upload
         uses: actions/upload-artifact@v2
         with:
