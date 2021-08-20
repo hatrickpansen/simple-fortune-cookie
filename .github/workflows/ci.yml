@@ -11,6 +11,7 @@ on:
 env:
   docker_username: ${{ secrets.DOCKER_USERNAME }}
   docker_password: ${{ secrets.DOCKER_PASSWORD }}
+  kube_config: ${{ secret.KUBE_CONFIG}}
 
 jobs:
   Clone-down:
@@ -81,4 +82,19 @@ jobs:
         run: go test
         working-directory: ./frontend
     
+  deployment:
+    needs: [Clone-down, DockerImage-frontend, DockerImage-backend, Go-Test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Decode kubeconfig
+        run: base64 -d {{ env.kube_config }} > ./.kube/config
+      - name: Download a single artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: clone-down
+          path: .
+      - name: Set new backend image
+        run: k set image backend=misterpatrick/simple-fortune-cookie-backend:${{ github.sha }} -f ./simple-fortune-cookie/k8s/backend-deployment.yaml 
+      - name: Set new frontend image
+        run: k set image frontend=misterpatrick/simple-fortune-cookie-frontend:${{ github.sha }} -f ./simple-fortune-cookie/k8s/frontend-deployment.yaml 
 

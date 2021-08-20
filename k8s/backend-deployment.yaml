@@ -28,6 +28,7 @@ spec:
             - name: REDIS_DNS
               value: redis
           image: misterpatrick/simple-fortune-cookie-backend:k8
+          imagePullPolicy: "Always"
           name: backend
           ports:
             - containerPort: 9000
