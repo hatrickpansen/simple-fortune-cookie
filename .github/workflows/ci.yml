@@ -11,7 +11,7 @@ on:
 env:
   docker_username: ${{ secrets.DOCKER_USERNAME }}
   docker_password: ${{ secrets.DOCKER_PASSWORD }}
-  kube_config: ${{ secrets.KUBE_CONFIG}}
+  kube_config: ${{ secrets.KUBE_CONFIG }}
 
 jobs:
   Clone-down:
@@ -90,7 +90,9 @@ jobs:
         run: mkdir ./.kube
         working-directory: .
       - name: Get kubeconfig contents
-        run: echo "$env.kube_config" > ./config.txt 
+        run: echo "$kube_config" > ./config.txt 
+        env:
+          kube_config: ${{ secrets.KUBE_CONFIG }}
       - name: catting config
         run: cat ./config.txt
       - name: Decode kubeconfig
