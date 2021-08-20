@@ -90,9 +90,9 @@ jobs:
         run: mkdir ./.kube
         working-directory: .
       - name: Get kubeconfig contents
-        run: echo ${{ env.kube_config }} > ./config.txt 
+        run: echo "$env.kube_config" > ./config.txt 
       - name: Decode kubeconfig
-        run: base64 -d ./config.txt -- > ./.kube/config
+        run: base64 -d ./config.txt > ./.kube/config
       - name: Download a single artifact
         uses: actions/download-artifact@v2
         with:
