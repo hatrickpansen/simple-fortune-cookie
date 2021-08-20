@@ -11,7 +11,7 @@ on:
 env:
   docker_username: ${{ secrets.DOCKER_USERNAME }}
   docker_password: ${{ secrets.DOCKER_PASSWORD }}
-  kube_config: ${{ secret.KUBE_CONFIG}}
+  kube_config: ${{ secrets.KUBE_CONFIG}}
 
 jobs:
   Clone-down:
