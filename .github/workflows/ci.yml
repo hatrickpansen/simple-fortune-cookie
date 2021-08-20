@@ -103,7 +103,7 @@ jobs:
           name: clone-down
           path: .
       - name: Set new backend image
-        run: kubectl set image backend=misterpatrick/simple-fortune-cookie-backend:${{ github.sha }} -f ./k8s/backend-deployment.yaml 
+        run: kubectl --kubeconfig=./.kube/config set image backend=misterpatrick/simple-fortune-cookie-backend:${{ github.sha }} -f ./k8s/backend-deployment.yaml 
       - name: Set new frontend image
-        run: kubectl set image frontend=misterpatrick/simple-fortune-cookie-frontend:${{ github.sha }} -f ./k8s/frontend-deployment.yaml 
+        run: kubectl --kubeconfig=./.kube/config set image frontend=misterpatrick/simple-fortune-cookie-frontend:${{ github.sha }} -f ./k8s/frontend-deployment.yaml 
 
