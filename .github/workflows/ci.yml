@@ -86,6 +86,8 @@ jobs:
     needs: [Clone-down, DockerImage-frontend, DockerImage-backend, Go-Test]
     runs-on: ubuntu-latest
     steps:
+      - name: Make .kube dir
+        run: mkdir ./.kube
       - name: Decode kubeconfig
         run: base64 -d {{ env.kube_config }} > ./.kube/config
       - name: Download a single artifact
