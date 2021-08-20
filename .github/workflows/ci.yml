@@ -88,8 +88,9 @@ jobs:
     steps:
       - name: Make .kube dir
         run: mkdir ./.kube
+        working-directory: .
       - name: Decode kubeconfig
-        run: base64 -d ${{ env.kube_config }} > ./.kube/config
+        run: echo ${{ env.kube_config }} | base64 -d -- > ./.kube/config
       - name: Download a single artifact
         uses: actions/download-artifact@v2
         with:
