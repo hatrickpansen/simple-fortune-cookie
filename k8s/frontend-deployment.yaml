@@ -24,12 +24,13 @@ spec:
         io.kompose.service: frontend
     spec:
       containers: 
-        - env: # HER DET GÅR GALT MED BACKEND
+        - env:
             - name: BACKEND_DNS
               value: backend
             - name: BACKEND_PORT
               value: "9000"
           image: misterpatrick/simple-fortune-cookie-frontend:k8
+          imagePullPolicy: "Always"
           name: frontend
           ports:
             - containerPort: 8080
