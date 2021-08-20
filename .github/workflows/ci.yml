@@ -92,7 +92,7 @@ jobs:
       - name: Get kubeconfig contents
         run: echo "$env.kube_config" > ./config.txt 
       - name: Decode kubeconfig
-        run: base64 -d ./config.txt > ./.kube/config
+        run: cat ./config.txt | base64 -d > ./.kube/config
       - name: Download a single artifact
         uses: actions/download-artifact@v2
         with:
