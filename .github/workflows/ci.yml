@@ -91,6 +91,7 @@ jobs:
         working-directory: .
       - name: Get kubeconfig contents
         run: echo "$env.kube_config" > ./config.txt 
+        run: cat ./config.txt
       - name: Decode kubeconfig
         run: cat ./config.txt | base64 -d > ./.kube/config
       - name: Download a single artifact
