@@ -82,7 +82,7 @@ jobs:
         run: go test
         working-directory: ./frontend
     
-  deployment:
+  deployment: # change
     needs: [Clone-down, DockerImage-frontend, DockerImage-backend, Go-Test]
     runs-on: ubuntu-latest
     steps:
